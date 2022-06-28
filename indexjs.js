@@ -52,32 +52,50 @@
 
 // -----------------------------------PROMISE ------------------------------------
 
-const horses = [
-  'lightHorse',
-  'braunHorse',
-  'blackHorse',
-  'whiteHorse',
-  'redHorse'];
+// const horses = [
+//   'lightHorse',
+//   'braunHorse',
+//   'blackHorse',
+//   'whiteHorse',
+//   'redHorse'];
 
-function run(horse) {
-  return new Promise((resolve, reject) => {
-    const time = randomeTime(3500, 2000);
-      setTimeout(() => {
-        resolve({horse, time});
+// function run(horse) {
+//   return new Promise((resolve, reject) => {
+//     const time = randomeTime(3500, 2000);
+//       setTimeout(() => {
+//         resolve({horse, time});
         
-      }, time);
+//       }, time);
+//     })
+// }
+  
+// // run('test').then(value => console.log(value))
+
+
+// const promises = horses.map(run);
+// const fastestHorse = Promise.race(promises).then(({horse, time}) => console.log(`The winner is ${horse}, with best time ${time}`));
+
+// const allResults = Promise.all(promises).then((value) => console.log(value));
+
+// function randomeTime(max, min) {
+//     return Math.floor(Math.random() * (max - min +1) + min )
+// }
+
+// ---------------------------HTTP--------------------------------------
+
+
+
+fetchPokemon().then(renderPokemon).catch()
+
+function fetchPokemon () {
+  return fetch('https://pokeapi.co/api/v2/version-group/11/').
+    then(response => {
+      response.json;
+      console.log(response);
     })
 }
-  
-// run('test').then(value => console.log(value))
 
-
-const promises = horses.map(run);
-const fastestHorse = Promise.race(promises).then(({horse, time}) => console.log(`The winner is ${horse}, with best time ${time}`));
-
-const allResults = Promise.all(promises).then((value) => console.log(value));
-
-function randomeTime(max, min) {
-    return Math.floor(Math.random() * (max - min +1) + min )
-}
-
+function renderPokemon(response) {
+  const markup = pokemonCard(response);
+  dom.innerHTML = markup;
+  }
